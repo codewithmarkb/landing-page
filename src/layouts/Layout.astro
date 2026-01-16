@@ -38,6 +38,12 @@ const { title } = Astro.props;
     font-family: 'Playfair Display', serif;
     background: #060A2D;
     color: #FFFFFF;
-    overflow: hidden;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  body::-webkit-scrollbar {
+    display: none;
   }
 </style>
