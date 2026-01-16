@@ -88,22 +88,6 @@ import Layout from '../layouts/Layout.astro';
     <div class="star" style="top: 56%; left: 97%; animation-delay: 2.0s;"></div>
     <div class="star" style="top: 61%; left: 34%; animation-delay: 5.6s;"></div>
     <div class="star" style="top: 66%; left: 73%; animation-delay: 1.3s;"></div>
-    <div class="star" style="top: 71%; left: 11%; animation-delay: 3.8s;"></div>
-    <div class="star" style="top: 76%; left: 64%; animation-delay: 0.5s;"></div>
-    <div class="star" style="top: 81%; left: 29%; animation-delay: 4.2s;"></div>
-    <div class="star" style="top: 86%; left: 91%; animation-delay: 2.6s;"></div>
-    <div class="star" style="top: 91%; left: 49%; animation-delay: 5.0s;"></div>
-    <div class="star" style="top: 96%; left: 6%; animation-delay: 1.7s;"></div>
-    <div class="star" style="top: 3%; left: 57%; animation-delay: 3.3s;"></div>
-    <div class="star" style="top: 13%; left: 39%; animation-delay: 0.4s;"></div>
-    <div class="star" style="top: 23%; left: 82%; animation-delay: 4.8s;"></div>
-    <div class="star" style="top: 43%; left: 54%; animation-delay: 2.2s;"></div>
-    <div class="star" style="top: 53%; left: 19%; animation-delay: 5.5s;"></div>
-    <div class="star" style="top: 73%; left: 43%; animation-delay: 1.9s;"></div>
-    <div class="star" style="top: 83%; left: 61%; animation-delay: 3.1s;"></div>
-    <div class="star" style="top: 98%; left: 79%; animation-delay: 0.1s;"></div>
-    <div class="star" style="top: 8%; left: 98%; animation-delay: 4.5s;"></div>
-    <div class="star" style="top: 62%; left: 2%; animation-delay: 2.7s;"></div>
   </div>
 
   <!-- Gradient Overlay -->
@@ -213,8 +197,8 @@ import Layout from '../layouts/Layout.astro';
   /* Mouse Follower */
   .mouse-glow {
     position: fixed;
-    width: 400px;
-    height: 400px;
+    width: 440px;
+    height: 440px;
     background: radial-gradient(circle, rgba(11, 19, 89, 0.35) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
@@ -233,6 +217,7 @@ import Layout from '../layouts/Layout.astro';
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    margin-top: -2rem;
   }
 
   .site-main {
@@ -268,8 +253,14 @@ import Layout from '../layouts/Layout.astro';
   .word {
     display: inline-block;
     opacity: 0;
-    animation: fadeUp 750ms ease-out forwards;
-    animation-delay: calc(125ms + (var(--i) * 125ms));
+    transform: translateY(1.5rem);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+    transition-delay: calc(0.125s + (var(--i) * 0.125s));
+  }
+
+  .word.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* Divider */
@@ -313,6 +304,7 @@ import Layout from '../layouts/Layout.astro';
   .social-icon svg {
     width: 1.5em;
     height: 1.5em;
+    padding: 4px;
   }
 
   /* Animations */
@@ -353,7 +345,8 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .heading {
-      font-size: 1.5em;
+      font-size: 2.25em;
+      letter-spacing: -0.021875rem;
     }
 
     .hero-gif {
@@ -367,12 +360,19 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .heading {
-      font-size: 1.25em;
+      font-size: 2.25em;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .heading {
+      font-size: 2em;
     }
   }
 </style>
 
 <script>
+  // Mouse glow effect
   const mouseGlow = document.getElementById('mouseGlow');
   let mouseX = 0;
   let mouseY = 0;
@@ -398,4 +398,12 @@ import Layout from '../layouts/Layout.astro';
   }
 
   animate();
+
+  // Word fade-in effect
+  document.addEventListener('DOMContentLoaded', () => {
+    const words = document.querySelectorAll('.word');
+    requestAnimationFrame(() => {
+      words.forEach(word => word.classList.add('visible'));
+    });
+  });
 </script>
